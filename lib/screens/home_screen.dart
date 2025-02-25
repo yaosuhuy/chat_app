@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,15 +13,25 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Chat App',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.normal,
+        leading: Icon(CupertinoIcons.home),
+        title: const Text('We Chat'),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.search),
           ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.more_vert),
+          ),
+        ],
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(10),
+        child: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add_comment_rounded),
         ),
-        centerTitle: false,
-        backgroundColor: Colors.white,
       ),
     );
   }
