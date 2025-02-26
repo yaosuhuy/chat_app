@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+late Size mq;
+// define a variable but not using it now
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -14,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Icon(CupertinoIcons.home),
-        title: const Text('We Chat'),
+        title: const Text('ChatApp'),
         actions: [
           IconButton(
             onPressed: () {},
