@@ -1,5 +1,6 @@
 import 'package:chat_app/resources/auth_methods.dart';
 import 'package:chat_app/screens/home_screen.dart';
+import 'package:chat_app/screens/signup_screen.dart';
 import 'package:chat_app/ultis/ultis.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -169,16 +170,21 @@ class _LoginScreenState extends State<LoginScreen> {
             RichText(
               text: TextSpan(
                 text: "Don't have an account yet? ",
-                style: TextStyle(fontSize: 14, color: const Color.fromARGB(99, 0, 0, 0)),
+                style: TextStyle(
+                    fontSize: 14, color: const Color.fromARGB(99, 0, 0, 0)),
                 children: <TextSpan>[
                   TextSpan(
                     text: 'Sign up now!',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.blue),
-                    recognizer: TapGestureRecognizer(
-                    )..onTap = () {
-                      print('u clicked');
-                    },
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => SignupScreen(),
+                          ),
+                        );
+                      },
                   ),
                 ],
               ),
