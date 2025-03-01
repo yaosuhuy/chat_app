@@ -2,6 +2,7 @@ import 'package:chat_app/resources/auth_methods.dart';
 import 'package:chat_app/screens/auth/login_screen.dart';
 import 'package:chat_app/screens/home_screen.dart';
 import 'package:chat_app/ultis/ultis.dart';
+import 'package:chat_app/widgets/password_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -152,62 +153,22 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
             ),
             SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: StatefulBuilder(
-                builder: (context, setState) {
-                  bool isObsecure = true;
-                  return TextField(
-                    controller: _passwordController,
-                    obscureText: isObsecure,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: const Color.fromARGB(10, 0, 0, 0)),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30),
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: const Color.fromARGB(52, 0, 0, 0)),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30),
-                        ),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.key_outlined,
-                        color: const Color.fromARGB(40, 0, 0, 0),
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(
-                            () {
-                              isObsecure = !isObsecure;
-                            },
-                          );
-                        },
-                        icon: Icon(isObsecure
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined),
-                        color: const Color.fromARGB(40, 0, 0, 0),
-                      ),
-                      hintText: 'Password',
-                      hintStyle: TextStyle(
-                        color: const Color.fromARGB(75, 0, 0, 0),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+            PasswordField(controller: _passwordController),
             SizedBox(height: 16),
+            PasswordField(
+              controller: _confirmPasswordController,
+              isConfirmPasswordField: true,
+              onChanged: (value) {
+                validatePassword();
+              },
+              errorText: _errorText,
+            )
             // Padding(
             //   padding: const EdgeInsets.symmetric(horizontal: 30),
             //   child: TextField(
             //     controller: _confirmPasswordController,
             //     // change confirmPassword while typing, not click "sign up"
-            //     onChanged: (value) => validatePassword(),
+            // onChanged: (value) => validatePassword(),
             //     obscureText: _isObsecure,
             //     decoration: InputDecoration(
             //       enabledBorder: OutlineInputBorder(
@@ -249,6 +210,7 @@ class _SignupScreenState extends State<SignupScreen> {
             //     ),
             //   ),
             // ),
+            ,
             SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(
