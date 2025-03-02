@@ -3,6 +3,7 @@ import 'package:chat_app/screens/auth/login_screen.dart';
 import 'package:chat_app/screens/home_screen.dart';
 import 'package:chat_app/ultis/ultis.dart';
 import 'package:chat_app/widgets/password_field.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   bool _isLoading = false;
-  String? _errorText = null;
+  String? _passwordErrorText = null;
+  String? _emailErrorText = null;
   @override
   void dispose() {
     // TODO: implement dispose
@@ -35,14 +37,29 @@ class _SignupScreenState extends State<SignupScreen> {
   bool validatePassword() {
     setState(() {
       if (_confirmPasswordController.text.isEmpty) {
-        _errorText = null;
+        _passwordErrorText = null;
       } else if (_confirmPasswordController.text != _passwordController.text) {
-        _errorText = "Confirm password does not match!";
+        _passwordErrorText = "Confirm password does not match!";
       } else {
-        _errorText = null;
+        _passwordErrorText = null;
       }
     });
     return _confirmPasswordController.text == _passwordController.text;
+  }
+
+  bool validateEmail() {
+    setState(() {
+      if (EmailValidator.validate(_emailController.text)) {
+        _emailErrorText = null;
+      } else if (_emailController.text.isEmpty){
+        _emailErrorText = null;
+      } 
+      else {
+        _emailErrorText = "Please enter a valid email!";
+      }
+      
+    });
+    return EmailValidator.validate(_emailController.text);
   }
 
   // mq = MediaQuery.of(context).size;
@@ -126,6 +143,9 @@ class _SignupScreenState extends State<SignupScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: TextField(
                 controller: _emailController,
+                onChanged: (value) {
+                  validateEmail();
+                },
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide:
@@ -149,9 +169,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   hintStyle: TextStyle(
                     color: const Color.fromARGB(75, 0, 0, 0),
                   ),
+                  errorText: _emailErrorText
                 ),
               ),
             ),
+            
             SizedBox(height: 16),
             PasswordField(controller: _passwordController),
             SizedBox(height: 16),
@@ -161,8 +183,8 @@ class _SignupScreenState extends State<SignupScreen> {
               onChanged: (value) {
                 validatePassword();
               },
-              errorText: _errorText,
-            )
+              errorText: _passwordErrorText,
+            ),
             // Padding(
             //   padding: const EdgeInsets.symmetric(horizontal: 30),
             //   child: TextField(
@@ -210,7 +232,7 @@ class _SignupScreenState extends State<SignupScreen> {
             //     ),
             //   ),
             // ),
-            ,
+
             SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(
