@@ -29,6 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      body: TextButton(
+        onPressed: () {},
+        child: Text('Log out!'),
+      ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(10),
         child: FloatingActionButton(
